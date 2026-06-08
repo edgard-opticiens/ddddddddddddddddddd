@@ -130,9 +130,6 @@ body{background:#fff;padding:0;}
           <option>Directeur Réseau</option>
           <option>Responsable Administratif et Financier</option>
         </select>
-        <div id="dirNote" style="display:none;margin-top:6px;font-size:10.5px;color:#856404;background:#FFF3CD;border:1px solid #C9A84C;border-radius:4px;padding:5px 8px">
-          ⚠️ Votre demande sera envoyée <strong>directement à la Direction</strong> (sans étape responsable).
-        </div>
       </div>
       <div></div>
     </div>
@@ -353,7 +350,6 @@ function updService(){
   var isDirect=svc&&SERVICES[svc]&&SERVICES[svc].direct;
   ge('sigsGrid').className='sigs3';
   ge('sigRespBlock').style.display='';
-  var dn=ge('dirNote');if(dn)dn.style.display=isDirect?'':'none';
   var btn=ge('btnResp');
   if(btn)btn.textContent=isDirect?'Envoyer à la Direction ›':'Envoyer au responsable ›';
 }
