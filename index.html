@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demande de Congés — Edgard Développement</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root{--g:#C9A84C;--gl:#E8C96A;--gp:#F5EDD0;--dk:#1A1A1A;--md:#4A4A4A;--lt:#F9F7F2;--bd:#D8CBA8;--r:6px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#EEEBE3;min-height:100vh;padding:16px 10px 40px;color:var(--dk)}
+.banner{max-width:900px;margin:0 auto 10px;padding:9px 16px;border-radius:7px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.bc{background:#E8F4E8;border:1.5px solid #27AE60;color:#1E7E34}
+.bd2{background:#FFF3CD;border:1.5px solid var(--g);color:#856404}
+.bd3{background:#EDE0F5;border:1.5px solid #9B59B6;color:#6C3483}
+.bdrh{background:#FDEDEC;border:1.5px solid #C0392B;color:#922B21}
+.badge{padding:2px 9px;border-radius:10px;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:700}
+.bc .badge{background:#27AE60;color:#fff}.bd2 .badge{background:var(--g);color:#fff}
+.bd3 .badge{background:#9B59B6;color:#fff}.bdrh .badge{background:#C0392B;color:#fff}
+.tb{max-width:900px;margin:0 auto 12px;display:flex;gap:7px;justify-content:flex-end;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:9px 17px;border:none;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
+.bg{background:var(--g);color:#fff}.bg:hover{background:var(--gl)}
+.bdk{background:var(--dk);color:#fff}.bdk:hover{background:#333}
+.bgr{background:#27AE60;color:#fff}.bgr:hover{background:#219A52}
+.bgp{background:#9B59B6;color:#fff}.bgp:hover{background:#7D3C98}
+.bol{background:transparent;border:2px solid var(--g);color:var(--g)}.bol:hover{background:var(--gp)}
+#wrap{max-width:900px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 6px 30px rgba(0,0,0,.12);overflow:hidden}
+.hdr{background:var(--dk);padding:16px 28px;display:flex;align-items:center;gap:16px}
+.logo{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--g);letter-spacing:3px}
+.logos{font-size:9px;letter-spacing:5px;color:#888;text-transform:uppercase;margin-top:2px}
+.hline{flex:1;height:1px;background:linear-gradient(to right,var(--g),transparent);margin:0 14px}
+.htit{text-align:right}.htit h1{font-family:'Playfair Display',serif;font-size:14px;color:#fff;font-weight:600;line-height:1.25}
+.sdis{font-size:10px;color:var(--g);margin-top:3px;font-weight:600}
+.fb{padding:14px 24px}
+.lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g);margin-bottom:3px;display:block}
+.inp{border:none;border-bottom:1.5px solid var(--bd);padding:5px 2px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--dk);background:transparent;outline:none;transition:border-color .2s;width:100%}
+.inp:focus{border-bottom-color:var(--g)}
+.sel{width:100%;border:none;border-bottom:1.5px solid var(--bd);padding:6px 22px 6px 2px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--dk);background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C9A84C' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 2px center;outline:none;cursor:pointer;appearance:none}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px;padding-bottom:12px;border-bottom:1.5px solid var(--gp)}
+.fg{display:flex;flex-direction:column}
+.val{font-size:13px;font-weight:600;color:var(--dk);padding:5px 2px;border-bottom:1.5px solid var(--bd);min-height:26px}
+.sec{margin-bottom:10px;border:1.5px solid var(--g);border-radius:var(--r);overflow:hidden}
+.sec-hdr{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--lt)}
+.sec-ttl{font-family:'Playfair Display',serif;font-size:14px;font-weight:600;color:var(--dk)}
+.sec-body{padding:12px 18px;background:#fff}
+.dg{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:10px}
+.jr{display:flex;align-items:center;gap:10px;background:var(--gp);border:1.5px solid var(--g);border-radius:5px;padding:8px 14px;margin-top:4px}
+.jrn{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--g);line-height:1;min-width:38px;text-align:center}
+.jrd{font-size:11px;color:var(--md)}
+.rappel{background:#FFF8E7;border-left:3px solid var(--g);padding:7px 10px;margin-top:10px;border-radius:0 4px 4px 0;font-size:10.5px;color:var(--md)}
+/* Signatures 3 colonnes */
+.sigs3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px}
+.sigs3.finance{grid-template-columns:1fr 1fr}
+.sigbox{border:1.5px solid var(--bd);border-radius:var(--r);overflow:hidden;position:relative}
+.sighdr{background:var(--lt);padding:7px 12px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--md);display:flex;justify-content:space-between;align-items:center}
+.sigclr{background:none;border:none;cursor:pointer;font-size:10px;color:var(--g);font-weight:700;padding:2px 4px}
+.sigft{padding:5px 12px;border-top:1px solid var(--bd);font-size:10px;color:var(--md);background:#FAFAF8;line-height:1.5}
+/* Shield */
+.shield{position:absolute;inset:0;background:rgba(249,247,242,.95);border-radius:var(--r);z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;text-align:center;padding:12px;border:2px dashed var(--bd)}
+/* Décision */
+.decbox{border:1.5px solid var(--bd);border-radius:var(--r);padding:10px;margin-top:8px}
+.dectit{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--g);margin-bottom:7px}
+.rrow{display:flex;gap:12px;margin-bottom:7px;flex-wrap:wrap}
+.ri{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px}
+.ri input{accent-color:var(--g);width:13px;height:13px}
+.mc{display:flex;align-items:center;gap:7px;padding:4px 0;font-size:12px;cursor:pointer}
+.mc input{accent-color:var(--g);width:13px;height:13px;flex-shrink:0}
+.mc label{cursor:pointer}
+textarea.inp{border:1.5px solid var(--bd);border-radius:4px;padding:5px 8px;resize:vertical;min-height:40px;font-size:12px;width:100%;margin-top:3px}
+/* Spinner / Toast */
+#sp{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:#fff;font-size:13px}
+#sp.show{display:flex}
+.spi{width:38px;height:38px;border:3px solid rgba(255,255,255,.3);border-top-color:var(--g);border-radius:50%;animation:rot .8s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--dk);color:#fff;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:500;transition:transform .3s;z-index:9999;pointer-events:none;max-width:400px;text-align:center}
+#toast.show{transform:translateX(-50%) translateY(0)}
+@media(max-width:600px){.sigs3,.sigs3.finance{grid-template-columns:1fr}.r2,.dg{grid-template-columns:1fr}}
+@media print{
+*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+body{background:#fff;padding:0;}
+.tb,.banner{display:none!important}
+#wrap{box-shadow:none;border-radius:0;max-width:100%}
+.shield{display:none!important}
+}
+</style>
+</head>
+<body>
+<div id="sp"><div class="spi"></div><span id="spmsg">...</span></div>
+<div id="toast"></div>
+
+<div class="banner bc" id="banner">
+  <span class="badge" id="badgeTxt">Collaborateur</span>
+  <span id="bannerMsg">Remplissez votre demande, signez, puis cliquez sur <strong>Envoyer au responsable</strong></span>
+</div>
+
+<div class="tb">
+  <button class="btn bol" onclick="resetForm()" id="btnReset">Reinitialiser</button>
+  <button class="btn bdk" id="btnCal" style="display:none" onclick="addOutlook()">📅 Agenda</button>
+  <button class="btn bdk" id="btnPDF" onclick="exportPDF()">PDF</button>
+  <button class="btn bgr" id="btnRH" style="display:none" onclick="doSendRH()">Envoyer aux RH ›</button>
+  <button class="btn bgp" id="btnDir2" style="display:none" onclick="doSendDir2()">Envoyer a la Direction ›</button>
+  <button class="btn bg" id="btnResp" onclick="doSendResp()">Envoyer au responsable ›</button>
+</div>
+
+<div id="wrap">
+  <div class="hdr">
+    <div><div class="logo">EDGARD</div><div class="logos">Opticiens</div></div>
+    <div class="hline"></div>
+    <div class="htit"><h1>Demande de Congés<br>Payés</h1><div class="sdis">Edgard Développement</div></div>
+  </div>
+  <div class="fb">
+
+    <!-- Informations collaborateur -->
+    <div class="r2">
+      <div class="fg"><label class="lbl">Service</label>
+        <select class="sel" id="service" onchange="updService()">
+          <option value="">-- Sélectionnez votre service --</option>
+          <option>Santé visuelle</option>
+          <option>Communication</option>
+          <option>Comptabilité</option>
+          <option>Ressources Humaines</option>
+          <option>Finance</option>
+          <option>Télé-Opératrice</option>
+          <option disabled style="color:#bbb">──────────────</option>
+          <option>Responsable Comptable</option>
+          <option>Responsable RH</option>
+          <option>Responsable Communication</option>
+          <option>Directeur Réseau</option>
+          <option>Responsable Administratif et Financier</option>
+        </select>
+        <div id="dirNote" style="display:none;margin-top:6px;font-size:10.5px;color:#856404;background:#FFF3CD;border:1px solid #C9A84C;border-radius:4px;padding:5px 8px">
+          ⚠️ Votre demande sera envoyée <strong>directement à la Direction</strong> (sans étape responsable).
+        </div>
+      </div>
+      <div></div>
+    </div>
+    <div class="r2">
+      <div class="fg"><label class="lbl">Nom</label><input class="inp" id="nom" placeholder="NOM" autocomplete="off"></div>
+      <div class="fg"><label class="lbl">Prénom</label><input class="inp" id="prenom" placeholder="Prénom" autocomplete="off"></div>
+    </div>
+
+    <!-- Section Congé Payé -->
+    <div class="sec">
+      <div class="sec-hdr"><div class="sec-ttl">Sollicite un congé payé</div></div>
+      <div class="sec-body">
+        <div class="dg">
+          <div class="fg"><label class="lbl">Premier jour non travaillé</label><input class="inp" type="date" id="cpD" onchange="calcJ()"></div>
+          <div class="fg"><label class="lbl">Dernier jour non travaillé</label><input class="inp" type="date" id="cpF" onchange="calcJ()"></div>
+        </div>
+        <div class="jr" id="jrBlk" style="display:none">
+          <div class="jrn" id="jrN">0</div>
+          <div><div style="font-size:12px;font-weight:600;color:var(--dk)">jours ouvrés décomptés</div><div class="jrd" id="jrD"></div></div>
+        </div>
+        <div class="rappel">Rappel : Le congé principal doit être pris du 1er mai au 31 octobre.</div>
+      </div>
+    </div>
+
+    <!-- Section Autorisation d'absence -->
+    <div class="sec">
+      <div class="sec-hdr" style="cursor:pointer;user-select:none" onclick="toggleAbs()">
+        <input type="checkbox" id="chkAbs" onclick="event.stopPropagation();toggleAbs()" style="accent-color:var(--g);width:14px;height:14px;margin-right:2px">
+        <div class="sec-ttl">Sollicite une autorisation d'absence</div>
+      </div>
+      <div class="sec-body" id="absBody" style="display:none">
+        <div style="margin-bottom:10px">
+          <div class="mc"><input type="radio" name="motifAbs" id="mEvt" value="Evt Fam" onchange="onMotif()"><label for="mEvt">🎉 Evénement familial</label></div>
+          <div id="evtBox" style="display:none;margin:4px 0 4px 22px"><label class="lbl">Précision</label><input class="inp" id="evtDetail" placeholder="ex : Mariage, naissance..."></div>
+          <div class="mc"><input type="radio" name="motifAbs" id="mCSS" value="CSS" onchange="onMotif()"><label for="mCSS">💼 CSS</label></div>
+          <div class="mc"><input type="radio" name="motifAbs" id="mANR" value="ANR" onchange="onMotif()"><label for="mANR">📋 ANR</label></div>
+          <div class="mc"><input type="radio" name="motifAbs" id="mRTT" value="RTT" onchange="onMotif()"><label for="mRTT">⏱️ RTT</label></div>
+          <div id="rttPerBox" style="display:none;margin:6px 0 4px 22px">
+            <label class="lbl">Période</label>
+            <select class="sel" id="rttPer" style="max-width:220px">
+              <option value="">-- Sélectionnez --</option>
+              <option value="Journée entière">Journée entière</option>
+              <option value="Matin">Matin</option>
+              <option value="Après-midi">Après-midi</option>
+            </select>
+          </div>
+        </div>
+        <div class="dg">
+          <div class="fg"><label class="lbl">Date début</label><input class="inp" type="date" id="absD"></div>
+          <div class="fg"><label class="lbl">Date fin</label><input class="inp" type="date" id="absF"></div>
+        </div>
+        <div class="dg" id="absHJBox">
+          <div class="fg"><label class="lbl">Heures d'absence</label><input class="inp" id="absH" placeholder="ex : 7h"></div>
+          <div class="fg"><label class="lbl">Nombre de jours</label><input class="inp" id="absJ" placeholder="ex : 1"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zone signatures -->
+    <div class="sigs3" id="sigsGrid">
+
+      <!-- Signature Collaborateur -->
+      <div class="sigbox">
+        <div class="sighdr">Signature du collaborateur <button class="sigclr" onclick="clrSig('C')">✕ Effacer</button></div>
+        <div id="sigCArea" style="width:100%;height:90px;background:#fff;"></div>
+        <div class="sigft"><span id="sigVille"></span><span id="sigSep"></span>le <strong id="today"></strong><br><span id="tsC" style="color:var(--g)"></span>&nbsp;</div>
+      </div>
+
+      <!-- Signature Responsable de service (masqué pour Finance) -->
+      <div class="sigbox" id="sigRespBlock">
+        <div class="sighdr">Signature responsable service <button class="sigclr" id="btnClrR" onclick="clrSig('R')" style="display:none">✕ Effacer</button></div>
+        <div id="sigRArea" style="width:100%;height:90px;background:#fff;"></div>
+        <div class="sigft"><span id="tsR" style="color:var(--g)"></span>&nbsp;</div>
+        <div class="shield" id="shieldR"><div style="font-size:22px">🔒</div><div style="font-size:10px;font-weight:600;color:var(--md);line-height:1.5">Réservé au<br>responsable</div></div>
+      </div>
+
+      <!-- Signature Direction -->
+      <div class="sigbox" id="sigDirBlock">
+        <div class="sighdr">Signature direction <button class="sigclr" id="btnClrD" onclick="clrSig('D')" style="display:none">✕ Effacer</button></div>
+        <div id="sigDArea" style="width:100%;height:90px;background:#fff;"></div>
+        <div class="sigft"><span id="tsD" style="color:var(--g)"></span>&nbsp;</div>
+        <div class="shield" id="shieldD"><div style="font-size:22px">🔒</div><div style="font-size:10px;font-weight:600;color:var(--md);line-height:1.5">Réservé à<br>la direction</div></div>
+      </div>
+    </div>
+
+    <!-- Décision Responsable (visible en mode responsable) -->
+    <div class="decbox" id="decRespBox" style="display:none">
+      <div class="dectit">Décision du responsable de service</div>
+      <div class="r2" style="border-bottom:none;margin-bottom:6px">
+        <div class="fg"><label class="lbl">Nom du responsable</label><input class="inp" id="respNom" placeholder="NOM"></div>
+        <div class="fg"><label class="lbl">Prénom du responsable</label><input class="inp" id="respPrenom" placeholder="Prénom"></div>
+      </div>
+      <div class="rrow">
+        <label class="ri"><input type="radio" name="decR" value="oui"> Autorise le congé</label>
+        <label class="ri"><input type="radio" name="decR" value="non"> Refus</label>
+      </div>
+      <div class="fg"><label class="lbl">Motif si refus</label><textarea class="inp" id="refMR" placeholder="Motif..." rows="2"></textarea></div>
+    </div>
+
+    <!-- Décision Direction (visible en mode direction) -->
+    <div class="decbox" id="decDirBox" style="display:none">
+      <div class="dectit">Décision de la direction</div>
+      <div class="r2" style="border-bottom:none;margin-bottom:6px">
+        <div class="fg"><label class="lbl">Nom direction</label><input class="inp" id="dirNom" placeholder="NOM" value="DERUY"></div>
+        <div class="fg"><label class="lbl">Prénom direction</label><input class="inp" id="dirPrenom" placeholder="Prénom" value="Julien"></div>
+      </div>
+      <div class="rrow">
+        <label class="ri"><input type="radio" name="decD" value="oui"> Autorise le congé</label>
+        <label class="ri"><input type="radio" name="decD" value="non"> Refus</label>
+      </div>
+      <div class="fg"><label class="lbl">Motif si refus</label><textarea class="inp" id="refMD" placeholder="Motif..." rows="2"></textarea></div>
+    </div>
+
+  </div><!-- /fb -->
+</div><!-- /wrap -->
+
+<script>
+/* ───────── CONFIGURATION ───────── */
+var SERVICES={
+  'Santé visuelle':{email:'m.desbois@groupe-edgard.com',nom:'DECLERCK-DESBOIS',prenom:'Mathieu'},
+  'Communication':{email:'s.franck@groupe-edgard.com',nom:'FRANCK',prenom:'Samuel'},
+  'Comptabilité':{email:'b.dedieuleveult@groupe-edgard.com',nom:'',prenom:'Déborah et Ludivine'},
+  'Ressources Humaines':{email:'f.lacroix@groupe-edgard.com',nom:'LA CROIX',prenom:'Fabienne'},
+  'Finance':{email:'b.dedieuleveult@groupe-edgard.com',nom:'DE DIEULEVEULT',prenom:'Baptiste'},
+  'Télé-Opératrice':{email:'m.fillatre@groupe-edgard.com',nom:'FILLATRE',prenom:'Morgane'},
+  // Services avec envoi direct à la Direction (pas d'étape responsable)
+  'Responsable Comptable':{email:'b.dedieuleveult@groupe-edgard.com',nom:'DE DIEULEVEULT',prenom:'Baptiste'},
+  'Responsable RH':{direct:true},
+  'Responsable Communication':{direct:true},
+  'Directeur Réseau':{direct:true},
+  'Responsable Administratif et Financier':{direct:true}
+};
+// Services dont les membres envoient directement à la Direction
+function isDirectToDir(svc,nom){
+  if(SERVICES[svc]&&SERVICES[svc].direct)return true;
+  if(svc==='Finance'&&nom.toUpperCase().indexOf('DIEULEVEULT')>=0)return true;
+  return false;
+}
+// Conserver isFinanceSelf pour compatibilité
+function isFinanceSelf(svc,nom){return svc==='Finance'&&nom.toUpperCase().indexOf('DIEULEVEULT')>=0;}
+var DIR_EMAIL='j.deruy@groupe-edgard.com';
+var RH_EMAIL='ressources-humaines@groupe-edgard.com';
+var BASE_URL=window.location.href.split('?')[0].split('#')[0].replace(/\/$/,'');
+var NS='http://www.w3.org/2000/svg';
+var _isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(/Macintosh/.test(navigator.userAgent)&&navigator.maxTouchPoints>1);
+var _mode='collab'; // 'collab','resp','dir','rh'
+var _data=null;
+var _tsC='',_tsR='',_tsD='';
+
+/* ───────── UTILITAIRES ───────── */
+function ge(i){return document.getElementById(i)}
+function gv(i){var e=ge(i);return e?e.value:''}
+function fNow(){var d=new Date();return d.toLocaleDateString('fr-FR')+' à '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
+function fD(iso){if(!iso)return'';var p=iso.split('-');return p[2]+'/'+p[1]+'/'+p[0]}
+function toast(msg,dur){var t=ge('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},dur||3000)}
+function spin(m){var s=ge('sp');ge('spmsg').textContent=m||'...';s.classList.add('show')}
+function unspin(){ge('sp').classList.remove('show')}
+
+/* ───────── CALCUL JOURS OUVRÉS ───────── */
+function easter(y){var a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31)-1,da=((h+l-7*m+114)%31)+1;return new Date(y,mo,da)}
+function feries(y){var e=easter(y),a=function(d,n){var x=new Date(d);x.setDate(d.getDate()+n);return x};return new Set([new Date(y,0,1),new Date(y,4,1),new Date(y,4,8),new Date(y,6,14),new Date(y,7,15),new Date(y,10,1),new Date(y,10,11),new Date(y,11,25),a(e,1),a(e,39),a(e,50)].map(function(d){return d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate()}))}
+function countJ(s,f){
+  if(!s||!f)return{c:0,fe:0};
+  var S=new Date(s+'T00:00:00'),F=new Date(f+'T00:00:00');
+  if(F<S)return{c:0,fe:0};
+  var fy=new Set();
+  for(var y=S.getFullYear();y<=F.getFullYear();y++)feries(y).forEach(function(k){fy.add(k)});
+  var cp=0,fe=0,dw=S.getDay();if(dw===0)dw=7;
+  var ws=new Date(S);ws.setDate(S.getDate()-(dw-1));
+  while(ws<=F){
+    var r5=0,rf=0;
+    for(var d=0;d<5;d++){var c=new Date(ws);c.setDate(ws.getDate()+d);var k=c.getFullYear()*10000+(c.getMonth()+1)*100+c.getDate();if(c>=S&&c<=F){r5++;if(fy.has(k))rf++;}}
+    var sam=new Date(ws);sam.setDate(ws.getDate()+5);var ks=sam.getFullYear()*10000+(sam.getMonth()+1)*100+sam.getDate();
+    if(fy.has(ks)&&r5>0)rf++;
+    if(r5>0){cp+=Math.max(0,r5-rf);fe+=rf;}
+    ws.setDate(ws.getDate()+7);
+  }
+  return{c:cp,fe:fe};
+}
+function calcJ(){
+  var d=gv('cpD'),f=gv('cpF'),jb=ge('jrBlk');
+  if(!d||!f){jb.style.display='none';return}
+  var r=countJ(d,f);
+  ge('jrN').textContent=r.c;
+  ge('jrD').textContent=r.fe?'dont '+r.fe+' jour(s) ferié(s)':'';
+  jb.style.display='flex';
+}
+
+/* ───────── AUTORISATION ABSENCE ───────── */
+function toggleAbs(){
+  var cb=ge('chkAbs');if(!cb)return;
+  var body=ge('absBody');if(body)body.style.display=cb.checked?'':'none';
+}
+function onMotif(){
+  var v=(document.querySelector('input[name="motifAbs"]:checked')||{}).value||'';
+  var isRTT=(v==='RTT');
+  var rttBox=ge('rttPerBox');if(rttBox)rttBox.style.display=isRTT?'':'none';
+  var hjBox=ge('absHJBox');if(hjBox)hjBox.style.display='';
+  var evtBox=ge('evtBox');if(evtBox)evtBox.style.display=(v==='Evt Fam')?'':'none';
+}
+function getAbsData(){
+  var cb=ge('chkAbs');if(!cb||!cb.checked)return null;
+  var motif=(document.querySelector('input[name="motifAbs"]:checked')||{}).value||'';
+  if(!motif)return null;
+  var isRTT=(motif==='RTT');
+  return{
+    on:true,motif:motif,
+    detail:(motif==='Evt Fam')?gv('evtDetail'):'',
+    rttPer:isRTT?gv('rttPer'):'',
+    d:gv('absD'),f:gv('absF'),
+    h:gv('absH'),
+    j:gv('absJ')
+  };
+}
+/* ───────── SERVICE ───────── */
+function updService(){
+  var svc=gv('service');
+  var isDirect=svc&&SERVICES[svc]&&SERVICES[svc].direct;
+  ge('sigsGrid').className='sigs3';
+  ge('sigRespBlock').style.display='';
+  var dn=ge('dirNote');if(dn)dn.style.display=isDirect?'':'none';
+  var btn=ge('btnResp');
+  if(btn)btn.textContent=isDirect?'Envoyer à la Direction ›':'Envoyer au responsable ›';
+}
+
+/* ───────── SVG SIGNATURES ───────── */
+function initSvgSig(areaId,tsId,tsVar){
+  var area=ge(areaId);
+  if(!area||area._ok)return;
+  var w=area.offsetWidth;
+  if(w<10){setTimeout(function(){initSvgSig(areaId,tsId,tsVar)},100);return}
+  area._ok=true;area._strokes=[];
+  var _cur=null,_curData=null,draw=false;
+  var svg=document.createElementNS(NS,'svg');
+  svg.setAttribute('viewBox','0 0 400 90');
+  svg.style.cssText='display:block;width:100%;height:90px;touch-action:none;cursor:crosshair;-webkit-user-select:none;user-select:none;background-color:#fff;';
+  var bg=document.createElementNS(NS,'rect');bg.setAttribute('width','400');bg.setAttribute('height','90');bg.setAttribute('fill','#fff');svg.appendChild(bg);
+  area.appendChild(svg);
+  function getPos(e){var r=svg.getBoundingClientRect();var s=e.changedTouches?e.changedTouches[0]:e.touches?e.touches[0]:e;return[Math.min(99,Math.max(0,Math.round((s.clientX-r.left)/r.width*99))),Math.min(99,Math.max(0,Math.round((s.clientY-r.top)/r.height*99)))]}
+  function startDraw(p){draw=true;if(!window[tsVar]){window[tsVar]=fNow();var el=ge(tsId);if(el)el.textContent='Signé le '+window[tsVar]}_curData=[p[0],p[1]];area._strokes.push(_curData);_cur=document.createElementNS(NS,'path');_cur.setAttribute('stroke','#1A1A1A');_cur.setAttribute('stroke-width','3');_cur.setAttribute('stroke-linecap','round');_cur.setAttribute('stroke-linejoin','round');_cur.setAttribute('fill','none');_cur.setAttribute('d','M'+(p[0]/99*400).toFixed(1)+','+(p[1]/99*90).toFixed(1));svg.appendChild(_cur)}
+  function moveDraw(p){if(!draw||!_cur)return;_curData.push(p[0],p[1]);_cur.setAttribute('d',_cur.getAttribute('d')+'L'+(p[0]/99*400).toFixed(1)+','+(p[1]/99*90).toFixed(1))}
+  function endDraw(){draw=false;_cur=null;_curData=null}
+  svg.addEventListener('mousedown',function(e){e.preventDefault();startDraw(getPos(e))});
+  svg.addEventListener('mousemove',function(e){if(!draw)return;e.preventDefault();moveDraw(getPos(e))});
+  svg.addEventListener('mouseup',endDraw);svg.addEventListener('mouseleave',endDraw);
+  svg.addEventListener('touchstart',function(e){e.preventDefault();e.stopPropagation();startDraw(getPos(e))},{passive:false,capture:true});
+  svg.addEventListener('touchmove',function(e){e.preventDefault();e.stopPropagation();moveDraw(getPos(e))},{passive:false,capture:true});
+  svg.addEventListener('touchend',function(e){e.preventDefault();endDraw()},{passive:false});
+  svg.addEventListener('touchcancel',endDraw);
+}
+function clrSig(who){
+  var id={C:'sigCArea',R:'sigRArea',D:'sigDArea'}[who];
+  var tsId={C:'tsC',R:'tsR',D:'tsD'}[who];
+  var tsVar={C:'_tsC',R:'_tsR',D:'_tsD'}[who];
+  var area=ge(id);if(!area)return;
+  area._strokes=[];area._ok=false;
+  var svg=area.querySelector('svg');
+  if(svg){svg.querySelectorAll('path').forEach(function(p){svg.removeChild(p)})}
+  window[tsVar]='';var el=ge(tsId);if(el)el.textContent='';
+}
+function getStrokes(areaId){
+  var a=ge(areaId);if(!a||!a._strokes||!a._strokes.length)return null;
+  // Fallback depuis SVG DOM
+  var paths=a.querySelectorAll('path');if(!paths.length)return a._strokes;
+  return a._strokes;
+}
+function isEmptySig(areaId){var a=ge(areaId);return!a||!a._strokes||!a._strokes.length}
+function showSig(areaId,strokes){
+  var area=ge(areaId);if(!area)return;
+  var svgPaths='';
+  for(var i=0;i<strokes.length;i++){
+    var s=strokes[i];if(!s||s.length<2)continue;
+    var d='M'+(s[0]/99*400).toFixed(1)+','+(s[1]/99*90).toFixed(1);
+    for(var j=2;j<s.length;j+=2)d+='L'+(s[j]/99*400).toFixed(1)+','+(s[j+1]/99*90).toFixed(1);
+    svgPaths+='<path d="'+d+'" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>';
+  }
+  var div=document.createElement('div');div.style.cssText='width:100%;height:90px;background:#fff;';
+  div.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 90" style="display:block;width:100%;height:90px;background-color:#fff;">'+svgPaths+'</svg>';
+  area.appendChild(div);
+}
+
+/* ───────── JPEG depuis tracés (pour PDF) ───────── */
+function sigToJpeg(areaId,q){
+  var area=ge(areaId)||{};
+  var strokes=(area._strokes||[]);
+  if(!strokes.length)return'';
+  try{
+    var t=document.createElement('canvas');t.width=400;t.height=90;
+    var x=t.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,400,90);
+    x.strokeStyle='#1A1A1A';x.lineWidth=2.5;x.lineCap='round';x.lineJoin='round';
+    for(var i=0;i<strokes.length;i++){var s=strokes[i];if(s.length<4)continue;x.beginPath();x.moveTo(s[0]/99*400,s[1]/99*90);for(var j=2;j<s.length;j+=2)x.lineTo(s[j]/99*400,s[j+1]/99*90);x.stroke()}
+    return t.toDataURL('image/jpeg',q||0.6);
+  }catch(e){return''}
+}
+
+/* ───────── PDF ───────── */
+function exportPDF(){if(_isIOS){printPDF();return}spin('PDF...');genPDF(false).then(unspin).catch(unspin)}
+function printPDF(){
+  var saved=[];
+  document.querySelectorAll('input[type="date"]').forEach(function(el){if(!el.value)return;saved.push({el:el,v:el.value});el.type='text';el.value=fD(el.value)});
+  setTimeout(function(){window.print();setTimeout(function(){saved.forEach(function(s){s.el.value='';s.el.type='date';s.el.value=s.v})},1000)},150)
+}
+async function genPDF(asBlob){
+  if(_isIOS)return null;
+  var saved=[];
+  document.querySelectorAll('input[type="date"]').forEach(function(el){if(!el.value)return;saved.push({el:el,v:el.value});el.type='text';el.value=fD(el.value)});
+  var iosOverlay=document.getElementById('ios-rh-overlay');if(iosOverlay)iosOverlay.style.display='none';
+  document.querySelectorAll('.modal,#toast,#sp').forEach(function(el){el.style.visibility='hidden'});
+  var res=null;
+  try{
+    var cv=await html2canvas(ge('wrap'),{scale:1.0,useCORS:true,logging:false,windowWidth:900});
+    saved.forEach(function(s){s.el.value='';s.el.type='date';s.el.value=s.v});
+    var img=cv.toDataURL('image/jpeg',.88);
+    var P=window.jspdf.jsPDF;
+    var margin=4,pageW=210,pageH=297,maxW=pageW-2*margin,maxH=pageH-2*margin;
+    var imgW=maxW,imgH=cv.height*imgW/cv.width;
+    if(imgH>maxH){imgH=maxH;imgW=cv.width*imgH/cv.height}
+    var x=(pageW-imgW)/2,y=margin;
+    var pdf=new P({orientation:'portrait',unit:'mm',format:'a4'});
+    pdf.addImage(img,'JPEG',x,y,imgW,imgH);
+    if(asBlob)res=pdf.output('blob');
+    else{var d=_data||{};pdf.save(('Demande_'+(d.prenom||gv('prenom'))+'_'+(d.nom||gv('nom'))+'.pdf').replace(/\s/g,'-'));res=true}
+  }catch(err){saved.forEach(function(s){s.el.value='';s.el.type='date';s.el.value=s.v});toast('Erreur PDF')}
+  document.querySelectorAll('.modal,#toast,#sp').forEach(function(el){el.style.visibility=''});
+  if(iosOverlay)iosOverlay.style.display='';
+  return res;
+}
+
+/* ───────── RACCOURCISSEMENT URL ───────── */
+function shortenUrl(url,cb){
+  if(url.startsWith('file://')){cb(url);return}
+  var done=false;
+  function done_(u){if(!done){done=true;cb(u)}}
+  // Essayer TinyURL en dernier recours
+  function tryTiny(){
+    var t2=setTimeout(function(){done_(url)},4000);
+    fetch('https://tinyurl.com/api-create.php?url='+encodeURIComponent(url))
+      .then(function(r){return r.text()})
+      .then(function(t){clearTimeout(t2);var s=(t||'').trim();done_(s.startsWith('http')?s:url)})
+      .catch(function(){clearTimeout(t2);done_(url)});
+  }
+  // Essayer is.gd en premier
+  var t1=setTimeout(function(){tryTiny()},4000); // timeout is.gd → passer à TinyURL
+  fetch('https://is.gd/create.php?format=json&url='+encodeURIComponent(url))
+    .then(function(r){return r.json()})
+    .then(function(res){
+      clearTimeout(t1);
+      if(res&&res.shorturl){done_(res.shorturl)}else{tryTiny()}
+    })
+    .catch(function(){clearTimeout(t1);tryTiny()});
+}
+function buildUrl(data,paramName){
+  var encoded=encodeURIComponent(JSON.stringify(data));
+  return BASE_URL+'?'+(paramName||'d')+'='+encoded;
+}
+function sendMail(to,subj,body){
+  window.location.href='mailto:'+to+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+}
+
+/* ───────── ENVOI COLLABORATEUR → RESPONSABLE ───────── */
+function doSendResp(){
+  var svc=gv('service'),nom=gv('nom').trim(),prenom=gv('prenom').trim();
+  if(!svc){toast('Sélectionnez votre service');return}
+  if(!nom||!prenom){toast('Saisissez votre nom et prénom');return}
+  var hasCp=gv('cpD')&&gv('cpF');
+  var absData=getAbsData();
+  var hasAbs=absData&&absData.motif&&absData.d;
+  if(!hasCp&&!hasAbs){toast('Saisissez les dates du congé ou de l\'absence');return}
+  if(absData&&absData.motif==='RTT'&&!absData.rttPer){toast('Précisez la période du RTT : Matin, Après-midi ou Journée entière');return}
+  if(absData&&absData.on&&(!absData.h||!absData.j)){toast('Saisissez les heures et le nombre de jours d\'absence');return}
+  if(isEmptySig('sigCArea')){toast('Apposez votre signature');return}
+  var cpData=null;
+  if(hasCp){cpData={d:gv('cpD'),f:gv('cpF')};var r=countJ(cpData.d,cpData.f);cpData.n=String(r.c);cpData.det=r.fe?'dont '+r.fe+' jour(s) ferié(s)':'';}
+  var payload={
+    mode:'resp',
+    service:svc,nom:nom,prenom:prenom,
+    cp:hasCp?cpData:null,tsC:_tsC,
+    abs:absData||null,
+    sigStrokes:getStrokes('sigCArea')
+  };
+  // Services directs (Responsables, Directeur) → aller direct à la Direction
+  var goDir=isDirectToDir(svc,nom);
+  if(goDir)payload.mode='dir';
+  var dest=goDir?{email:DIR_EMAIL,nom:'DERUY',prenom:'Julien'}:SERVICES[svc];
+  if(!dest){toast('Erreur: service non configuré');return}
+  var subj='[CP] Demande de congé — '+prenom+' '+nom+' ('+svc+')';
+  var cpLine=hasCp?'CP : du '+fD(cpData.d)+' au '+fD(cpData.f)+' ('+cpData.n+' jours)':'';
+  var absLine=hasAbs?'Absence '+absData.motif+(absData.motif==='RTT'?' ('+absData.rttPer+')':'')+' : du '+fD(absData.d)+(absData.f&&absData.f!==absData.d?' au '+fD(absData.f):''):'';
+  var body='Bonjour '+dest.prenom+',\n\nVeuillez trouver ci-dessous le lien pour signer la demande de '+prenom+' '+nom+'.\n\nService : '+svc+(cpLine?'\n'+cpLine:'')+(absLine?'\n'+absLine:'')+'\n\nLien pour signer :\n\n';
+  spin('Génération du lien...');
+  shortenUrl(buildUrl(payload,'d'),function(url){
+    unspin();
+    sendMail(dest.email,subj,body+url+'\n\nCordialement,\n'+prenom+' '+nom);
+  });
+}
+
+/* ───────── ENVOI RESPONSABLE → DIRECTION ───────── */
+function doSendDir2(){
+  if(!gv('respNom').trim()||!gv('respPrenom').trim()){toast('Saisissez le nom et prénom du responsable');return}
+  var dec=(document.querySelector('input[name="decR"]:checked')||{}).value||'';
+  if(!dec){toast('Cochez Autorise ou Refus');return}
+  if(isEmptySig('sigRArea')){toast('Apposez votre signature');return}
+  var payload=Object.assign({},_data,{
+    mode:'dir',
+    respNom:gv('respNom'),respPrenom:gv('respPrenom'),
+    tsR:_tsR,decR:dec,refMR:gv('refMR'),
+    sigRespStrokes:getStrokes('sigRArea')
+  });
+  var subj='[CP/ABS] Demande à valider — '+_data.prenom+' '+_data.nom+' ('+_data.service+')';
+  var cpInfo=_data.cp?'Du : '+fD(_data.cp.d)+' au '+fD(_data.cp.f)+' ('+_data.cp.n+' jours)':'';
+  var absInfo=_data.abs?'Absence '+_data.abs.motif+(_data.abs.motif==='RTT'?' ('+_data.abs.rttPer+')':'')+' : du '+fD(_data.abs.d)+((_data.abs.f&&_data.abs.f!==_data.abs.d)?' au '+fD(_data.abs.f):''):'';
+  var body='Bonjour Julien,\n\nVeuillez trouver ci-dessous le lien pour signer la demande de '+_data.prenom+' '+_data.nom+'.\n\nService : '+_data.service+(cpInfo?'\n'+cpInfo:'')+(absInfo?'\n'+absInfo:'')+'\nDécision responsable : '+dec+'\n\nLien pour signer :\n\n';
+  spin('Génération du lien...');
+  shortenUrl(BASE_URL+'?d='+encodeURIComponent(JSON.stringify(payload)),function(url){
+    unspin();
+    sendMail(DIR_EMAIL,subj,body+url+'\n\nCordialement,\n'+gv('respPrenom')+' '+gv('respNom'));
+  });
+}
+
+/* ───────── ENVOI DIRECTION → RH ───────── */
+function doSendRH(){
+  if(!gv('dirNom').trim()||!gv('dirPrenom').trim()){toast('Saisissez le nom et prénom de la direction');return}
+  var dec=(document.querySelector('input[name="decD"]:checked')||{}).value||'';
+  if(!dec){toast('Cochez Autorise ou Refus');return}
+  if(isEmptySig('sigDArea')){toast('Apposez votre signature');return}
+  var d=_data||{};
+  var payload=Object.assign({},d,{
+    mode:'rh',
+    dirNom:gv('dirNom'),dirPrenom:gv('dirPrenom'),
+    tsD:_tsD,decD:dec,refMD:gv('refMD'),
+    sigDirStrokes:getStrokes('sigDArea')
+  });
+  var subj='[CP]['+d.service+'] Demande signée — '+d.prenom+' '+d.nom;
+  var body='Bonjour,\n\nVeuillez trouver ci-dessous le lien pour télécharger la demande de congé signée de '+d.prenom+' '+d.nom+' ('+d.service+').\n\nLien pour télécharger le PDF :\n\n';
+  var longUrl=BASE_URL+'?r='+encodeURIComponent(JSON.stringify(payload));
+  spin('Génération du lien...');
+  shortenUrl(longUrl,function(url){
+    unspin();
+    if(_isIOS){
+      sendMail(RH_EMAIL,subj,body+url+'\n\nCordialement,\n'+gv('dirPrenom')+' '+gv('dirNom'));
+      return;
+    }
+    genPDF(true).then(function(blob){
+      if(blob){
+        var fn=('Demande_'+d.prenom+'_'+d.nom+'_SIGNE.pdf').replace(/\s/g,'-');
+        var burl=URL.createObjectURL(blob);
+        var a=document.createElement('a');a.href=burl;a.download=fn;
+        document.body.appendChild(a);a.click();document.body.removeChild(a);
+        setTimeout(function(){URL.revokeObjectURL(burl)},3000);
+      }
+      setTimeout(function(){sendMail(RH_EMAIL,subj,body+url+'\n\nCordialement,\n'+gv('dirPrenom')+' '+gv('dirNom'))},600);
+    });
+  });
+}
+
+/* ───────── CALENDRIER ICS ───────── */
+function addOutlook(){
+  var d=_data;if(!d||!d.cp||!d.cp.d||!d.cp.f){toast('Dates manquantes');return}
+  var dD=d.cp.d,dF=d.cp.f;
+  var nextD=function(iso){var x=new Date(iso+'T00:00:00');x.setDate(x.getDate()+1);return x.getFullYear()*10000+(x.getMonth()+1)*100+x.getDate()};
+  var fmtICS=function(iso){return iso.replace(/-/g,'')};
+  var fmtICSend=function(iso){var n=nextD(iso);return String(n)};
+  var subj=(d.nom||'').toUpperCase()+' '+(d.prenom||'')+' — CP du '+fD(dD)+' au '+fD(dF)+' ('+d.service+')';
+  var now=new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+  var uid=Date.now()+'@edgard-dev';
+  var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Edgard Developpement//CP//FR','METHOD:PUBLISH',
+    'BEGIN:VEVENT','UID:'+uid,'DTSTAMP:'+now,
+    'DTSTART;VALUE=DATE:'+fmtICS(dD),'DTEND;VALUE=DATE:'+fmtICSend(dF),
+    'SUMMARY:'+subj,'STATUS:CONFIRMED','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  var blob=new Blob([ics],{type:'text/calendar;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');a.href=url;a.download=((d.nom||'')+'_'+(d.prenom||'')+'_CP.ics').replace(/\s/g,'_');
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(url)},3000);
+  toast('Fichier calendrier téléchargé — ouvrez-le pour ajouter à votre agenda',5000);
+}
+/* ───────── RESET ───────── */
+function resetForm(){
+  ['service','nom','prenom','cpD','cpF','respNom','respPrenom','dirNom','dirPrenom','refMR','refMD'].forEach(function(i){var el=ge(i);if(el)el.value=''});
+  ge('jrBlk').style.display='none';
+  clrSig('C');clrSig('R');clrSig('D');
+  _tsC='';_tsR='';_tsD='';
+  updService();
+}
+
+/* ───────── DOM READY ───────── */
+document.addEventListener('DOMContentLoaded',function(){
+  ge('today').textContent=new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+  var search=window.location.search;
+
+  // Lire ?r= (mode RH)
+  var mr=search.match(/[?&]r=([^&]*)/);
+  if(mr){
+    try{_data=JSON.parse(decodeURIComponent(mr[1]));_mode='rh';}catch(e){}
+  }
+  // Lire ?d= (mode resp ou dir)
+  var md=search.match(/[?&]d=([^&]*)/);
+  if(md&&!_data){
+    try{_data=JSON.parse(decodeURIComponent(md[1]));_mode=_data.mode||'resp';}catch(e){}
+  }
+
+  if(_mode==='rh'&&_data){
+    /* MODE RH : lecture seule */
+    ge('banner').className='banner bdrh';
+    ge('badgeTxt').textContent='RH';
+    ge('bannerMsg').innerHTML='Demande signée — <button class="btn bgr" style="padding:6px 14px;font-size:12px" onclick="exportPDF()">Télécharger le PDF</button>';
+    ge('btnResp').style.display='none';ge('btnDir2').style.display='none';ge('btnRH').style.display='none';
+    ge('btnPDF').textContent='Télécharger PDF';ge('btnReset').style.display='none';ge('btnCal').style.display='';
+    _populateForm(_data);
+    // Afficher signatures en lecture seule
+    if(_data.sigStrokes){showSig('sigCArea',_data.sigStrokes);}
+    if(_data.sigRespStrokes&&ge('sigRespBlock').style.display!=='none'){showSig('sigRArea',_data.sigRespStrokes);}
+    if(_data.sigDirStrokes){showSig('sigDArea',_data.sigDirStrokes);}
+    if(_data.tsC)ge('tsC').textContent='Signé le '+_data.tsC;
+    if(_data.tsR)ge('tsR').textContent='Signé le '+_data.tsR;
+    if(_data.tsD)ge('tsD').textContent='Signé le '+_data.tsD;
+    // Afficher décisions
+    if(_data.respNom){ge('decRespBox').style.display='block';ge('respNom').value=_data.respNom;ge('respPrenom').value=_data.respPrenom||''}
+    if(_data.decR){var rb=document.querySelector('input[name="decR"][value="'+_data.decR+'"]');if(rb)rb.checked=true}
+    if(_data.refMR)ge('refMR').value=_data.refMR;
+    if(_data.dirNom){ge('decDirBox').style.display='block';ge('dirNom').value=_data.dirNom;ge('dirPrenom').value=_data.dirPrenom||''}
+    if(_data.decD){var rd=document.querySelector('input[name="decD"][value="'+_data.decD+'"]');if(rd)rd.checked=true}
+    if(_data.refMD)ge('refMD').value=_data.refMD;
+    // Tout en lecture seule
+    document.querySelectorAll('input,select,textarea').forEach(function(el){el.setAttribute('readonly','');el.style.pointerEvents='none'});
+    document.querySelectorAll('input[type="radio"]').forEach(function(el){el.style.pointerEvents='none'});
+    return;
+  }
+
+  if(_mode==='dir'&&_data){
+    /* MODE DIRECTION */
+    ge('banner').className='banner bd3';
+    ge('badgeTxt').textContent='Direction';
+    ge('bannerMsg').innerHTML='Signez la demande puis cliquez sur <strong>Envoyer aux RH</strong>';
+    ge('btnResp').style.display='none';ge('btnDir2').style.display='none';
+    ge('btnRH').style.display='';
+    ge('btnCal').style.display='';
+    _populateForm(_data);
+    // Signature collab (read-only)
+    if(_data.sigStrokes)showSig('sigCArea',_data.sigStrokes);
+    if(_data.tsC)ge('tsC').textContent='Signé le '+_data.tsC;
+    // Signature responsable (read-only si présente)
+    if(_data.sigRespStrokes){
+      ge('shieldR').style.display='none';
+      showSig('sigRArea',_data.sigRespStrokes);
+      if(_data.tsR)ge('tsR').textContent='Signé le '+_data.tsR;
+    }
+    if(_data.respNom){ge('decRespBox').style.display='block';ge('respNom').value=_data.respNom;ge('respPrenom').value=_data.respPrenom||'';ge('respNom').style.pointerEvents='none';ge('respPrenom').style.pointerEvents='none'}
+    if(_data.decR){var rb=document.querySelector('input[name="decR"][value="'+_data.decR+'"]');if(rb)rb.checked=true;document.querySelectorAll('input[name="decR"]').forEach(function(r){r.style.pointerEvents='none'})}
+    if(_data.refMR){ge('refMR').value=_data.refMR;ge('refMR').style.pointerEvents='none'}
+    // Activer signature direction
+    ge('shieldD').style.display='none';ge('btnClrD').style.display='';
+    ge('decDirBox').style.display='block';
+    setTimeout(function(){initSvgSig('sigDArea','tsD','_tsD')},200);
+    // Bloquer collab fields
+    ['service','nom','prenom','cpD','cpF'].forEach(function(i){var el=ge(i);if(el){el.style.pointerEvents='none';el.setAttribute('readonly','')}});
+    return;
+  }
+
+  if(_mode==='resp'&&_data){
+    /* MODE RESPONSABLE */
+    ge('banner').className='banner bd2';
+    ge('badgeTxt').textContent='Responsable';
+    ge('bannerMsg').innerHTML='Signez la demande puis cliquez sur <strong>Envoyer à la Direction</strong>';
+    ge('btnResp').style.display='none';
+    ge('btnDir2').style.display='';
+    ge('btnCal').style.display='';
+    _populateForm(_data);
+    // Signature collab (read-only)
+    if(_data.sigStrokes)showSig('sigCArea',_data.sigStrokes);
+    if(_data.tsC)ge('tsC').textContent='Signé le '+_data.tsC;
+    // Activer signature responsable
+    ge('shieldR').style.display='none';ge('btnClrR').style.display='';
+    ge('decRespBox').style.display='block';
+    setTimeout(function(){initSvgSig('sigRArea','tsR','_tsR')},200);
+    // Bloquer les champs collab
+    ['service','nom','prenom','cpD','cpF'].forEach(function(i){var el=ge(i);if(el){el.style.pointerEvents='none';el.setAttribute('readonly','')}});
+    return;
+  }
+
+  /* MODE COLLABORATEUR */
+  ge('sigVille').textContent='Tours,';ge('sigSep').textContent=' ';
+  initSvgSig('sigCArea','tsC','_tsC');
+  updService();
+});
+
+function _populateForm(d){
+  if(d.service){ge('service').value=d.service;updService()}
+  if(d.nom){ge('nom').value=d.nom}
+  if(d.prenom){ge('prenom').value=d.prenom}
+  if(d.cp){
+    if(d.cp.d){var el=ge('cpD');el.type='text';el.value=fD(d.cp.d)}
+    if(d.cp.f){var el=ge('cpF');el.type='text';el.value=fD(d.cp.f)}
+    if(d.cp.n){ge('jrN').textContent=d.cp.n;ge('jrD').textContent=d.cp.det||'';ge('jrBlk').style.display='flex'}
+  }
+  if(d.abs&&d.abs.on){
+    var cb=ge('chkAbs');if(cb){cb.checked=true;toggleAbs();}
+    if(d.abs.motif){var rb=document.querySelector('input[name="motifAbs"][value="'+d.abs.motif+'"]');if(rb){rb.checked=true;onMotif();}}
+    if(d.abs.detail&&ge('evtDetail'))ge('evtDetail').value=d.abs.detail;
+    if(d.abs.rttPer&&ge('rttPer')){ge('rttPer').value=d.abs.rttPer;}
+    if(d.abs.d){var el=ge('absD');if(el){el.type='text';el.value=fD(d.abs.d);}}
+    if(d.abs.f){var el=ge('absF');if(el){el.type='text';el.value=fD(d.abs.f);}}
+    if(d.abs.h&&ge('absH'))ge('absH').value=d.abs.h;
+    if(d.abs.j&&ge('absJ'))ge('absJ').value=d.abs.j;
+  }
+  var refDate=(d.cp&&d.cp.d)||(d.abs&&d.abs.d);
+  ge('today').textContent=refDate?new Date(refDate+'T00:00:00').toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}):ge('today').textContent;
+}
+</script>
+</body>
+</html>
